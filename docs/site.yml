@@ -1,4 +1,4 @@
-name: "bayesian"
+name: "logit"
 output_dir: "docs" 
 navbar:  
   title: "Bill"
