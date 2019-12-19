@@ -1,5 +1,8 @@
 ---
-title: "Speed and distance"
+title: "index"
+author: "Will Ding"
+date: "December 18, 2019"
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
