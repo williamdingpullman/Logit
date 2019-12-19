@@ -295,6 +295,15 @@ $(document).ready(function () {
 
 
 <p>This is the first page</p>
+<div id="logit" class="section level1">
+<h1>Logit:</h1>
+<p><span class="math display">\[f(x)=log(\frac{p(y=1)}{1-p(y=1)})\]</span> The basic idea of logistic regression: <span class="math display">\[p(y=1)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}}=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}\]</span></p>
+<p>Thus, we can get: <span class="math display">\[log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n\]</span></p>
+</div>
+<div id="probit" class="section level1">
+<h1>Probit</h1>
+<p><span class="math display">\[\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p)\]</span> Thus, <span class="math display">\[\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)\]</span></p>
+</div>
 
 
 

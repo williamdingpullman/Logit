@@ -1,9 +1,8 @@
 ---
-title: "Index"
-output: html_document
-knit: (function(input_file, encoding){out_dir <- 'docs'; rmarkdown::render(input_file,output_format = "html_document", encoding=encoding,output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
+title: "Logistic regression and probit"
+date: "November 29, 2019"
+output: pdf_document
 ---
-This is the first page
 
 #Logit:
 

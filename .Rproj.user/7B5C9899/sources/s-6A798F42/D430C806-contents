@@ -5,3 +5,17 @@ knit: (function(input_file, encoding){out_dir <- 'docs'; rmarkdown::render(input
 ---
 This is the first page
 
+#Logit:
+
+$$f(x)=log(\frac{p(y=1)}{1-p(y=1)})$$
+The basic idea of logistic regression:
+$$p(y=1)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}}=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}$$
+
+Thus, we can get:
+$$log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n$$
+
+# Probit
+
+$$\beta_0+\beta_1x_1+...+\beta_nx_n =\Phi^{-1}(p)$$
+Thus, 
+$$\Phi(\beta_0+\beta_1x_1+...+\beta_nx_n )= p(y=1)$$
