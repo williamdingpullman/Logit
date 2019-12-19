@@ -10,6 +10,14 @@ This is the first page
 $$f(x)=log(\frac{p(y=1)}{1-p(y=1)})$$
 The basic idea of logistic regression:
 $$p(y=1)=\frac{1}{1+e^{-(\beta_0+\beta_1x_1+...+\beta_nx_n)}}=\frac{e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}{1+e^{\beta_0+\beta_1x_1+...+\beta_nx_n}}$$
+Thus, $e^{\beta_0+\beta_1x_1+...+\beta_nx_n}$ can be from $-\infty$ to $+\infty$, and $p(y=1)$ will be always from $(0,1)$.
+
+```{R}
+f<-function(x){exp(x)/(1+exp(x))}
+data<-seq(-10,10,1)
+plot(data,f(data),type = "b")
+  
+```
 
 Thus, we can get:
 $$log \frac{p(y=1)}{1-p(y=1)}= \beta_0+\beta_1x_1+...+\beta_nx_n$$
