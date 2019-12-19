@@ -1,0 +1,10 @@
+name: "bayesian"
+output_dir: "docs" 
+navbar:
+  title: "bayesian"
+  left:
+  -text: "Speed and distance"
+   href: Speedanddistance.html
+output:
+  html_document:
+  theme: cosmo

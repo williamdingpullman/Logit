@@ -1,0 +1,10 @@
+name: "bayesian"
+output_dir: "docs" 
+navbar:
+  title: "bayesian"
+  left:
+  -text: "Home"
+   href: index.html
+output:
+  html_document:
+  theme: cosmo
