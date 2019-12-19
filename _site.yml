@@ -5,8 +5,8 @@ navbar:
   left:  # you can also use 'right'
     - text: "Home"
       href: index.html
-    - text: "Other Pages"
-      href: speedanddistance.html
+    - text: "Calculation"
+      href: calculation.html
 output: html_document
 theme: cosmo
 
