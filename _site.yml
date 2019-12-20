@@ -1,13 +1,15 @@
 name: "logit"
 output_dir: "docs" 
 navbar:  
-  title: "Bill"
+  title: "Bill's Project"
   left:  # you can also use 'right'
     - text: "Home"
       href: index.html
     - text: "Calculation"
       href: calculation.html
-output: html_document
-theme: cosmo
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
 
 # Reference: https://robertmitchellv.com/blog-building-site-with-rmarkdown.html
