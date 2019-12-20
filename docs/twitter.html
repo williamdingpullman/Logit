@@ -297,7 +297,90 @@ $(document).ready(function () {
 </div>
 
 
-<p>The following is part of my course project for Stat 536. It aims to replicate part of the findings from Barber</p>
+<p>The following is part of my course project for Stat 536. It aims to replicate part of the findings from Barbera (2015) Birds of the Same Feather Tweet Together: Bayesian Ideal Point Estimation Using Twitter Data. Political Analysis 23 (1). Note that, the following model is much simpler than that in the original paper.</p>
+<p>Suppose that a Twitter user is presented with a choice between following or not following another target <span class="math inline">\(j \in \{ 1, ..., m\}\)</span>. Let <span class="math inline">\(y_{j}=1\)</span> if the user decides to follow <span class="math inline">\(j\)</span>, and <span class="math inline">\(y_{j}=0\)</span> otherwise.</p>
+<p><span class="math display">\[y_{j}=\begin{cases} 1 &amp; Following \\ 0 &amp; Not Following \end{cases}\]</span></p>
+<p><span class="math display">\[p(y_{j}=1|\theta) = \frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)}\]</span> We additionally know the priors of <span class="math inline">\(\theta\)</span>.</p>
+<p><span class="math display">\[\theta_i \sim N(0,10^2) (i = 0, 1)\]</span></p>
+<p>The likelihood function is as follows.</p>
+<p><span class="math display">\[L(Y|\theta)=\prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\]</span> Thus, the posterior is as follows.</p>
+<p><span class="math display">\[L(Y|\theta) \cdot N(\theta_0|0,10) \cdot N(\theta_1|0,10)\]</span> <span class="math display">\[\propto \prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\cdot exp(-\frac{1}{2}(\frac{\theta_0}{10})^2)\cdot exp(-\frac{1}{2}(\frac{\theta_1}{10})^2)\]</span></p>
+<div id="simulating-data-of-senators-on-twitter" class="section level2">
+<h2>Simulating Data of Senators on Twitter</h2>
+<p>Assume that we have 100 senators, 50 Democrats and 50 Republicans, who we know their ideology. Assume that Democrats have negative ideology scores to indicate that they are more liberal, whereas Republicans have positive scores to indicate that they are more conservative. The following is data simulation for senators.</p>
+<pre class="r"><code># Republicans are more conservative, and they have positive numbers.
+Republicans&lt;-c()
+Republicans&lt;-rnorm(50,1,0.5)
+No_Republicans&lt;-rep(1:50,1)
+Part_1&lt;-cbind(No_Republicans,Republicans)
+
+# Democrats are more liberal, and they have negative numbers.
+Democrats&lt;-c()
+Democrats&lt;-rnorm(50,-1,0.5)
+No_Democrats&lt;-rep(51:100,1)
+Part_2&lt;-cbind(No_Democrats,Democrats)
+Data_Elites&lt;-rbind(Part_1,Part_2)
+Data_Elites&lt;-as.data.frame(Data_Elites)
+colnames(Data_Elites) &lt;- c(&quot;Elite_No&quot;,&quot;Elite_ideology&quot;)
+
+head(Data_Elites)</code></pre>
+<pre><code>##   Elite_No Elite_ideology
+## 1        1      1.5683704
+## 2        2      0.8990969
+## 3        3      1.0421090
+## 4        4      0.4122945
+## 5        5      0.9497498
+## 6        6      1.6038005</code></pre>
+</div>
+<div id="simulating-data-of-conservative-users-on-twitter-and-model-testing" class="section level2">
+<h2>Simulating Data of Conservative Users on Twitter and Model Testing</h2>
+<p>Assume that we observe one Twitter user, who is more conservative. To simulate Twitter following data for this user, I assign this user to follow more Republican senators. Thus, if the Metropolis Hastings algorithm works as intended, we would expect to see a positive estimated value for their ideology. Importantly, as we can see in the histogram below, the estimated value indeed is positive, providing preliminary evidence for the statistical model and the algorithm. In addition, for the acceptance rate, we can see that the constant has a lower number than ideology, since we only accept a constant when it is positive.</p>
+<pre class="r"><code>#This user approximately follows 45 Republican Senators and 10 Democrat Senators. 
+Data_user&lt;-as.data.frame(matrix(c(ifelse(runif(50)&lt;.1,0,1),ifelse(runif(50)&lt;.8,0,1))), 100, 1)
+colnames(Data_user)&lt;-c(&quot;R_User&quot;)
+Data_combined&lt;-cbind(Data_Elites,Data_user)
+
+X_data&lt;-Data_combined$Elite_ideology
+Y_data&lt;-Data_combined$R_User
+
+fit_C&lt;-Bayes_logit(Y_data,X_data)
+fit_C$acceptance_rate</code></pre>
+<pre><code>## [1] 0.3296648 0.3316658</code></pre>
+<pre class="r"><code>plot(fit_C$theta[,1],main=&quot;Constant (Conservative Users)&quot;,
+     xlab=&quot;Iteration Process&quot;,ylab=&quot;Estimated Scores&quot;,type=&quot;l&quot;)</code></pre>
+<p><img src="twitter_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>plot(fit_C$theta[,2],main=&quot;Estimated Ideology Scores (Conservative Users)&quot;,
+     xlab=&quot;Iteration Process&quot;,ylab=&quot;Ideology Scores&quot;,type=&quot;l&quot;)</code></pre>
+<p><img src="twitter_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<pre class="r"><code>hist(fit_C$theta[,2],main=&quot;Estimated Ideology Scores (Conservative Users)&quot;,
+     xlab=&quot;Ideology Scores&quot;,breaks = 100)</code></pre>
+<p><img src="twitter_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
+</div>
+<div id="simulating-data-of-liberal-users-on-twitter-and-model-testing" class="section level2">
+<h2>Simulating Data of Liberal Users on Twitter and Model Testing</h2>
+<p>To further verify the Metropolis Hastings algorithm, I plan to test the opposite estimate. Specifically, assume that we observe another user, who is more liberal. To simulate Twitter following data for this user, I assign this user to follow more Democrat senators. In this case, we would expect to see a negative value for their estimated ideology. As we can see in the histogram shown below, as expected, the estimated value is negative, providing convergent evidence for the model and the algorithm.</p>
+<pre class="r"><code>#This user approximately follows 10 Republican Senators and 45 Democrat Senators. 
+Data_user&lt;-as.data.frame(matrix(c(ifelse(runif(50)&lt;.8,0,1),ifelse(runif(50)&lt;.1,0,1))), 100, 1)
+colnames(Data_user)&lt;-c(&quot;L_User&quot;)
+Data_combined&lt;-cbind(Data_Elites,Data_user)
+
+X_data&lt;-Data_combined$Elite_ideology
+Y_data&lt;-Data_combined$L_User
+
+
+fit_L&lt;-Bayes_logit(Y_data,X_data)
+fit_L$acceptance_rate</code></pre>
+<pre><code>## [1] 0.1315658 0.6748374</code></pre>
+<pre class="r"><code>plot(fit_L$theta[,1],main=&quot;Constant (Liberal Users)&quot;,
+     xlab=&quot;Iteration Process&quot;,ylab=&quot;Estimated Scores&quot;,type=&quot;l&quot;)</code></pre>
+<p><img src="twitter_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>plot(fit_L$theta[,2],main=&quot;Estimated Ideology Scores (Liberal Users)&quot;,
+     xlab=&quot;Iteration Process&quot;,ylab=&quot;Ideology Scores&quot;,type=&quot;l&quot;)</code></pre>
+<p><img src="twitter_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<pre class="r"><code>hist(fit_L$theta[,2],main=&quot;Estimated Ideology Scores (Liberal Users)&quot;,
+     xlab=&quot;Ideology Scores&quot;,breaks = 100)</code></pre>
+<p><img src="twitter_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+</div>
 
 
 
