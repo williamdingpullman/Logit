@@ -1,4 +1,0 @@
-name: "bayesian"
-output_dir: "docs" 
-output: html_document: {}
-theme: cosmo
