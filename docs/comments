@@ -1,10 +1,11 @@
+##console:
+rmarkdown::render_site()
+
 ##git
 git add .
 git commit -m "New file"
 pull and then push
 
-##console:
-rmarkdown::render_site()
 
 ## Youtube tutorials
 https://www.youtube.com/watch?v=nc7XhQrasCM

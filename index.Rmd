@@ -3,7 +3,6 @@ title: "Index"
 output: html_document
 knit: (function(input_file, encoding){out_dir <- 'docs'; rmarkdown::render(input_file,output_format = "html_document", encoding=encoding,output_file=file.path(dirname(input_file), out_dir, 'index.html'))})
 ---
-This is the first page
 
 #Logit:
 
