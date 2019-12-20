@@ -7,6 +7,8 @@ navbar:
       href: index.html
     - text: "Calculation"
       href: calculation.html
+    - text: "Twitter"
+      href: twitter.html
 output:
   html_document:
     theme: cosmo

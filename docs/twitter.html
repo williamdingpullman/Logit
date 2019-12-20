@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Twitter</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Bill's Stat Project</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="calculation.html">Calculation</a>
+</li>
+<li>
+  <a href="twitter.html">Twitter</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Twitter</h1>
+
+</div>
+
+
+<p>Suppose that a Twitter user is presented with a choice between following or not following another target <span class="math inline">\(j \in \{ 1, ..., m\}\)</span>. Let <span class="math inline">\(y_{j}=1\)</span> if the user decides to follow <span class="math inline">\(j\)</span>, and <span class="math inline">\(y_{j}=0\)</span> otherwise.</p>
+<p><span class="math display">\[y_{j}=\begin{cases} 1 &amp; Following \\ 0 &amp; Not Following \end{cases}\]</span></p>
+<p><span class="math display">\[p(y_{j}=1|\theta) = \frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)}\]</span> We additionally know the priors of <span class="math inline">\(\theta\)</span>.</p>
+<p><span class="math display">\[\theta_i \sim N(0,10^2) (i = 0, 1)\]</span></p>
+<p>The likelihood function is as follows.</p>
+<p><span class="math display">\[L(Y|\theta)=\prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\]</span> Thus, the posterior is as follows.</p>
+<p><span class="math display">\[L(Y|\theta) \cdot N(\theta_0|0,10) \cdot N(\theta_1|0,10)\]</span> <span class="math display">\[\propto \prod_{j=1}^{m} (\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{y_j}(1-\frac{exp(- \theta_0|\theta_1 - x_j|^2)}{1+exp(- \theta_0|\theta_1 - x_j|^2)})^{(1-y_j)}\cdot exp(-\frac{1}{2}(\frac{\theta_0}{10})^2)\cdot exp(-\frac{1}{2}(\frac{\theta_1}{10})^2)\]</span></p>
+<div id="simulating-data-of-senators-on-twitter" class="section level2">
+<h2>Simulating Data of Senators on Twitter</h2>
+<p>Assume that we have 100 senators, 50 Democrats and 50 Republicans, who we know their ideology. Assume that Democrats have negative ideology scores to indicate that they are more liberal, whereas Republicans have positive scores to indicate that they are more conservative. The following is data simulation for senators.</p>
+<pre class="r"><code># Republicans are more conservative, and they have positive numbers.
+Republicans&lt;-c()
+Republicans&lt;-rnorm(50,1,0.5)
+No_Republicans&lt;-rep(1:50,1)
+Part_1&lt;-cbind(No_Republicans,Republicans)
+
+# Democrats are more liberal, and they have negative numbers.
+Democrats&lt;-c()
+Democrats&lt;-rnorm(50,-1,0.5)
+No_Democrats&lt;-rep(51:100,1)
+Part_2&lt;-cbind(No_Democrats,Democrats)
+Data_Elites&lt;-rbind(Part_1,Part_2)
+Data_Elites&lt;-as.data.frame(Data_Elites)
+colnames(Data_Elites) &lt;- c(&quot;Elite_No&quot;,&quot;Elite_ideology&quot;)
+
+head(Data_Elites)</code></pre>
+<pre><code>##   Elite_No Elite_ideology
+## 1        1      1.0579274
+## 2        2      1.2819741
+## 3        3      0.2844460
+## 4        4      1.0780345
+## 5        5      0.7793121
+## 6        6      0.6043443</code></pre>
+</div>
+<div id="simulating-data-of-conservative-users-on-twitter-and-model-testing" class="section level2">
+<h2>Simulating Data of Conservative Users on Twitter and Model Testing</h2>
+<p>Assume that we observe one Twitter user, who is more conservative. To simulate Twitter following data for this user, I assign this user to follow more Republican senators. Thus, if the Metropolis Hastings algorithm works as intended, we would expect to see a positive estimated value for their ideology. Importantly, as we can see in the histogram below, the estimated value indeed is positive, providing preliminary evidence for the statistical model and the algorithm. In addition, for the acceptance rate, we can see that the constant has a lower number than ideology, since we only accept a constant when it is positive.</p>
+<pre class="r"><code>#This user approximately follows 45 Republican Senators and 10 Democrat Senators. 
+Data_user&lt;-as.data.frame(matrix(c(ifelse(runif(50)&lt;.1,0,1),ifelse(runif(50)&lt;.8,0,1))), 100, 1)
+colnames(Data_user)&lt;-c(&quot;R_User&quot;)
+Data_combined&lt;-cbind(Data_Elites,Data_user)
+
+X_data&lt;-Data_combined$Elite_ideology
+Y_data&lt;-Data_combined$R_User
+
+fit_C&lt;-Bayes_logit(Y_data,X_data)
+fit_C$acceptance_rate</code></pre>
+<pre><code>## [1] 0.1670835 0.5122561</code></pre>
+<pre class="r"><code>plot(fit_C$theta[,1],main=&quot;Constant (Conservative Users)&quot;,
+     xlab=&quot;Iteration Process&quot;,ylab=&quot;Estimated Scores&quot;,type=&quot;l&quot;)</code></pre>
+<p><img src="twitter_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>plot(fit_C$theta[,2],main=&quot;Estimated Ideology Scores (Conservative Users)&quot;,
+     xlab=&quot;Iteration Process&quot;,ylab=&quot;Ideology Scores&quot;,type=&quot;l&quot;)</code></pre>
+<p><img src="twitter_files/figure-html/unnamed-chunk-2-2.png" width="672" /></p>
+<pre class="r"><code>hist(fit_C$theta[,2],main=&quot;Estimated Ideology Scores (Conservative Users)&quot;,
+     xlab=&quot;Ideology Scores&quot;,breaks = 100)</code></pre>
+<p><img src="twitter_files/figure-html/unnamed-chunk-2-3.png" width="672" /></p>
+</div>
+<div id="simulating-data-of-liberal-users-on-twitter-and-model-testing" class="section level2">
+<h2>Simulating Data of Liberal Users on Twitter and Model Testing</h2>
+<p>To further verify the Metropolis Hastings algorithm, I plan to test the opposite estimate. Specifically, assume that we observe another user, who is more liberal. To simulate Twitter following data for this user, I assign this user to follow more Democrat senators. In this case, we would expect to see a negative value for their estimated ideology. As we can see in the histogram shown below, as expected, the estimated value is negative, providing convergent evidence for the model and the algorithm.</p>
+<pre class="r"><code>#This user approximately follows 10 Republican Senators and 45 Democrat Senators. 
+Data_user&lt;-as.data.frame(matrix(c(ifelse(runif(50)&lt;.8,0,1),ifelse(runif(50)&lt;.1,0,1))), 100, 1)
+colnames(Data_user)&lt;-c(&quot;L_User&quot;)
+Data_combined&lt;-cbind(Data_Elites,Data_user)
+
+X_data&lt;-Data_combined$Elite_ideology
+Y_data&lt;-Data_combined$L_User
+
+
+fit_L&lt;-Bayes_logit(Y_data,X_data)
+fit_L$acceptance_rate</code></pre>
+<pre><code>## [1] 0.1445723 0.5452726</code></pre>
+<pre class="r"><code>plot(fit_L$theta[,1],main=&quot;Constant (Liberal Users)&quot;,
+     xlab=&quot;Iteration Process&quot;,ylab=&quot;Estimated Scores&quot;,type=&quot;l&quot;)</code></pre>
+<p><img src="twitter_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>plot(fit_L$theta[,2],main=&quot;Estimated Ideology Scores (Liberal Users)&quot;,
+     xlab=&quot;Iteration Process&quot;,ylab=&quot;Ideology Scores&quot;,type=&quot;l&quot;)</code></pre>
+<p><img src="twitter_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<pre class="r"><code>hist(fit_L$theta[,2],main=&quot;Estimated Ideology Scores (Liberal Users)&quot;,
+     xlab=&quot;Ideology Scores&quot;,breaks = 100)</code></pre>
+<p><img src="twitter_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
