@@ -9,6 +9,8 @@ navbar:
       href: calculation.html
     - text: "Twitter"
       href: twitter.html
+    - text: "Websites"
+      href: websites.html
 output:
   html_document:
     theme: cosmo

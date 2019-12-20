@@ -1,0 +1,14 @@
+---
+title: "websites"
+output: html_document
+knit: (function(input_file, encoding){out_dir <- 'docs'; rmarkdown::render(input_file,output_format = "html_document", encoding=encoding,output_file=file.path(dirname(input_file), out_dir, 'websites.html'))})
+---
+
+# R and time series analysis
+http://r-statistics.co/Time-Series-Analysis-With-R.html
+
+# Basic logistic regression
+https://www.r-bloggers.com/logistic-regression/
+
+# R and mixed effect logistic regression
+https://stats.idre.ucla.edu/r/dae/mixed-effects-logistic-regression/
