@@ -4,6 +4,8 @@ output: html_document
 knit: (function(input_file, encoding){out_dir <- 'docs'; rmarkdown::render(input_file,output_format = "html_document", encoding=encoding,output_file=file.path(dirname(input_file), out_dir, 'twitter.html'))})
 ---
 
+The following is part of my course project for Stat 536. It aims to replicate part of the findings from Barberá (2015) "Birds of the Same Feather Tweet Together: Bayesian Ideal Point Estimation Using Twitter Data." Political Analysis 23 (1). Note that, the following model is much simpler than that in the original paper.
+
 Suppose that a Twitter user is presented with a choice between following or not following another target $j \in \{ 1, ..., m\}$. Let $y_{j}=1$ if the user decides to follow $j$, and  $y_{j}=0$ otherwise.
 
 
