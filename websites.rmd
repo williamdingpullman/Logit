@@ -12,3 +12,6 @@ https://www.r-bloggers.com/logistic-regression/
 
 # R and mixed effect logistic regression
 https://stats.idre.ucla.edu/r/dae/mixed-effects-logistic-regression/
+
+# Some Twitter examples
+https://twitterdev.github.io/do_more_with_twitter_data/index.html#
