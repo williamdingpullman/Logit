@@ -328,12 +328,12 @@ colnames(Data_Elites) &lt;- c(&quot;Elite_No&quot;,&quot;Elite_ideology&quot;)
 
 head(Data_Elites)</code></pre>
 <pre><code>##   Elite_No Elite_ideology
-## 1        1     -0.2649801
-## 2        2      0.9668916
-## 3        3      0.7042633
-## 4        4      1.2998038
-## 5        5      0.6272112
-## 6        6      0.4047324</code></pre>
+## 1        1      1.4008930
+## 2        2      0.2956588
+## 3        3      1.1070096
+## 4        4      1.3774785
+## 5        5      1.9981447
+## 6        6      1.2915561</code></pre>
 </div>
 <div id="simulating-data-of-conservative-users-on-twitter-and-model-testing" class="section level2">
 <h2>Simulating Data of Conservative Users on Twitter and Model Testing</h2>
@@ -348,7 +348,7 @@ Y_data&lt;-Data_combined$R_User
 
 fit_C&lt;-Bayes_logit(Y_data,X_data)
 fit_C$acceptance_rate</code></pre>
-<pre><code>## [1] 0.1790895 0.4802401</code></pre>
+<pre><code>## [1] 0.1425713 0.5392696</code></pre>
 <pre class="r"><code>plot(fit_C$theta[,1],main=&quot;Constant (Conservative Users)&quot;,
      xlab=&quot;Iteration Process&quot;,ylab=&quot;Estimated Scores&quot;,type=&quot;l&quot;)</code></pre>
 <p><img src="twitter_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
@@ -373,7 +373,7 @@ Y_data&lt;-Data_combined$L_User
 
 fit_L&lt;-Bayes_logit(Y_data,X_data)
 fit_L$acceptance_rate</code></pre>
-<pre><code>## [1] 0.08454227 0.73286643</code></pre>
+<pre><code>## [1] 0.1665833 0.4922461</code></pre>
 <pre class="r"><code>plot(fit_L$theta[,1],main=&quot;Constant (Liberal Users)&quot;,
      xlab=&quot;Iteration Process&quot;,ylab=&quot;Estimated Scores&quot;,type=&quot;l&quot;)</code></pre>
 <p><img src="twitter_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
